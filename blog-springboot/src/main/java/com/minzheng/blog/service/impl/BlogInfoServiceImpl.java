@@ -142,7 +142,6 @@ public class BlogInfoServiceImpl implements BlogInfoService {
         // 删除缓存
         redisService.del(WEBSITE_CONFIG);
     }
-
     @Override
     public WebsiteConfigVO getWebsiteConfig() {
         WebsiteConfigVO websiteConfigVO;

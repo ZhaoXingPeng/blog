@@ -110,7 +110,7 @@ upload:
 
 # 网站前台域名（邮件通知用）
 website:
-  url: http://你的主域名或ip
+  url: http://localhost
 
 #第三方配置信息
 qq:

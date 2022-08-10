@@ -21,6 +21,18 @@ import "vue-image-swipe/dist/vue-image-swipe.css";
 import Toast from "./components/toast/index";
 import NProgress from "nprogress";
 import "nprogress/nprogress.css";
+// markdown
+import mavonEditor from 'mavon-editor';
+import 'mavon-editor/dist/css/index.css';
+import ElementUI from 'element-ui';
+//引入elementui
+import 'element-ui/lib/theme-chalk/index.css';
+
+
+//在vue中使用elementui
+Vue.use(ElementUI);
+
+Vue.use(mavonEditor);
 
 Vue.prototype.config = config;
 Vue.config.productionTip = false;
@@ -33,60 +45,60 @@ Vue.use(VueImageSwipe);
 Vue.use(Toast);
 
 Vue.filter("date", function(value) {
-  return dayjs(value).format("YYYY-MM-DD");
+    return dayjs(value).format("YYYY-MM-DD");
 });
 
 Vue.filter("year", function(value) {
-  return dayjs(value).format("YYYY");
+    return dayjs(value).format("YYYY");
 });
 
 Vue.filter("hour", function(value) {
-  return dayjs(value).format("HH:mm:ss");
+    return dayjs(value).format("HH:mm:ss");
 });
 
 Vue.filter("time", function(value) {
-  return dayjs(value).format("YYYY-MM-DD HH:mm:ss");
+    return dayjs(value).format("YYYY-MM-DD HH:mm:ss");
 });
 
 Vue.filter("num", function(value) {
-  if (value >= 1000) {
-    return (value / 1000).toFixed(1) + "k";
-  }
-  return value;
+    if (value >= 1000) {
+        return (value / 1000).toFixed(1) + "k";
+    }
+    return value;
 });
 
 router.beforeEach((to, from, next) => {
-  NProgress.start();
-  if (to.meta.title) {
-    document.title = to.meta.title;
-  }
-  next();
+    NProgress.start();
+    if (to.meta.title) {
+        document.title = to.meta.title;
+    }
+    next();
 });
 
 router.afterEach(() => {
-  window.scrollTo({
-    top: 0,
-    behavior: "instant"
-  });
-  NProgress.done();
+    window.scrollTo({
+        top: 0,
+        behavior: "instant"
+    });
+    NProgress.done();
 });
 
 axios.interceptors.response.use(
-  function(response) {
-    switch (response.data.code) {
-      case 50000:
-        Vue.prototype.$toast({ type: "error", message: "系统异常" });
+    function(response) {
+        switch (response.data.code) {
+            case 50000:
+                Vue.prototype.$toast({ type: "error", message: "系统异常" });
+        }
+        return response;
+    },
+    function(error) {
+        return Promise.reject(error);
     }
-    return response;
-  },
-  function(error) {
-    return Promise.reject(error);
-  }
 );
 
 new Vue({
-  router,
-  store,
-  vuetify,
-  render: h => h(App)
+    router,
+    store,
+    vuetify,
+    render: h => h(App)
 }).$mount("#app");
